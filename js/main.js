@@ -1,6 +1,6 @@
-document.getElementById('myForm').addEventListener('submit', saveBookmark);
+document.getElementById('myForm').addEventListener('submit', saveBookmarks);
 
-function saveBookmark(e)
+function saveBookmarks(e)
 {
 	//console.log('It works!');
 
@@ -35,4 +35,10 @@ function saveBookmark(e)
 
 	//Prevent form from submitting
 	e.preventDefault();
+}
+
+function fetchBookmarks()
+{
+	var bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+	console.log(bookmarks);
 }
