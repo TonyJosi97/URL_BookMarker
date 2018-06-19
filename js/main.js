@@ -38,6 +38,8 @@ function saveBookmarks(e)
 		localStorage.setItem('bookmarks',JSON.stringify(bookmarks));
 	}
 
+	document.getElementById('myForm').reset();
+
 	fetchBookmarks();
 
 	//Prevent form from submitting
