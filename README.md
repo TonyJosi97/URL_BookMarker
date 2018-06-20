@@ -14,7 +14,7 @@ Uses local storage to save the bookmarks data.
 ![alt text](https://github.com/TonyJosi97/URL_Bookmarker/blob/master/meta/screen.png) 
 
 # Check out the app at:
-    http://bookmarkmyurl.000webhostapp.com/
+http://bookmarkmyurl.000webhostapp.com/
 
 
 
