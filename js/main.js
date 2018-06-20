@@ -5,15 +5,17 @@ function saveBookmarks(e)
 	//console.log('It works!');
 
 	//Get form values
+	var siteFolder = document.getElementById('siteFolder').value;
 	var siteName = document.getElementById('siteName').value;
     var siteURL = document.getElementById('siteURL').value;
 
-    if(!validateForm(siteName, siteURL))
+    if(!validateForm(siteName, siteURL, siteFolder))
     {
     	return false;
     }
 
     var bookmarkObject = {
+    	folder: siteFolder,
     	name: siteName,
     	url: siteURL
     }
@@ -33,8 +35,24 @@ function saveBookmarks(e)
 	}
 	else
 	{
+		var flag = 0;
 		var bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
-		bookmarks.push(bookmarkObject);
+		for(var i = 0; i < bookmarks.length; i++)
+		{
+			if(bookmarks[i].folder == siteFolder)
+			{
+				flag = 1;
+				bookmarks.splice(i, 0, bookmarkObject);
+				console.log("Done");
+				break;
+			}
+		}
+
+		if(flag == 0)
+		{
+			bookmarks.push(bookmarkObject);
+		}
+
 		localStorage.setItem('bookmarks',JSON.stringify(bookmarks));
 	}
 
@@ -73,24 +91,55 @@ function fetchBookmarks()
 
 	bookmarksResults.innerHTML = "";
 
+	
+	if(bookmarks.length > 0)
+	{
+		prevFolder = bookmarks[0].folder;
+	}
+
+
 	for(var i = 0; i < bookmarks.length; i++)
 	{
+		var folder = bookmarks[i].folder;
 		var name = bookmarks[i].name;
 		var url = bookmarks[i].url;
 
-		bookmarksResults.innerHTML += '<div class="well">'+
-										'<h3>'+name+
+		if(i == 0)
+		{
+			bookmarksResults.innerHTML += '<div class="well">'+
+										'<h2>'+folder+'<\h2>'+ 
+										'</div>';
+		}
+
+		if(prevFolder != folder)
+		{
+			bookmarksResults.innerHTML += '<div class="well">'+
+										'<br>'+
+										'<h2>'+folder+'<\h2>'+ 
+										'<h4>'+name+
 										'<a class = "btn btn-default" target="_blank" href="'+url+'" > VISIT SITE </a>'+
 										'<a onclick = "deleteBookmark(\''+url+'\')" class = "btn btn-danger" href="#">DELETE BOOKMARK</a>'+
-										'</h3>'+
+										'</h4>'+
 										'</div>';
+			prevFolder = folder;
+		}
+
+		else
+		{
+			bookmarksResults.innerHTML += '<div class="well">'+
+											'<h4>'+name+
+											'<a class = "btn btn-default" target="_blank" href="'+url+'" > VISIT SITE </a>'+
+											'<a onclick = "deleteBookmark(\''+url+'\')" class = "btn btn-danger" href="#">DELETE BOOKMARK</a>'+
+											'</h4>'+
+											'</div>';
+		}
 
 	}
 
 }
 
 function validateForm(siteName, siteUrl){
-  if(!siteName || !siteUrl){
+  if(!siteName || !siteUrl || !siteFolder){
     alert('Please fill in the form');
     return false;
   }

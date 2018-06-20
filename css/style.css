@@ -17,6 +17,9 @@ body {
   padding-bottom: 20px;
   border-bottom: 1px solid #e5e5e5;
 }
+
+
+
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
   margin-top: 0;
@@ -48,13 +51,19 @@ body {
 }
 .jumbotron .btn {
   padding: 14px 24px;
-  font-size: 21px;
-}
+  font-size: 21
 
 /* Supporting marketing content */
 .marketing {
   margin: 40px 0;
 }
+
+.marketing h1 {
+
+  background-color: grey;
+
+}
+
 .marketing p + h4 {
   margin-top: 28px;
 }
